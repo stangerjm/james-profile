@@ -1,0 +1,111 @@
+<link rel="import" href="..\..\bower_components/polymer/polymer.html">
+
+<dom-module id="my-employ">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      .gridBox{
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: auto 325px;
+        grid-template-areas:
+        "leftAlign rightAlign";
+      }
+      @media only screen and (max-width: 630px){
+        .gridBox{
+          grid-template-columns: auto;
+          grid-template-areas:
+          "leftAlign"
+          "rightAlign";
+        }
+      }
+    </style>
+
+    <h1>Employment</h1>
+    <hr>
+    <div class="gridBox">
+      <div class="leftAlign">
+        <h3>Teaching Assistant</h3>
+        <p>Brigham Young University - Idaho</p>
+      </div>
+      <div class="rightAlign">
+        <h3>[From April 2016 - Present]</h3>
+        <p>Rexburg, Idaho</p>
+      </div>
+      <ul>
+        <li>Remediated dozens of working example programs by applying foundational programming rubrics</li>
+        <li>Fixed error-ridden programs using debugging tools to help aspiring programmers develop seamless code</li>
+        <li>Utilized multicultural interpersonal communication skills to work with developers from all around the world</li>
+        <li>Demonstrated above average mastery of programming techniques, communication, and collaboration skills</li>
+      </ul>
+    </div>
+
+    <div class="gridBox">
+      <div class="leftAlign">
+        <h3>Private Tutor</h3>
+        <p>Brigham Young University - Idaho</p>
+      </div>
+      <div class="rightAlign">
+        <h3>[From June 2016 - Present]</h3>
+        <p>Rexburg, Idaho</p>
+      </div>
+      <ul>
+        <li>Utilized languages such as JavaScript, HTML, CSS, Java, SQL and others to assist in the learning of students</li>
+        <li>Consulted developers to develop modular, responsive, and efficient web pages using the MVC model</li>
+        <li>Debugged complex code and software by implementing testing techniques to develop working applications</li>
+        <li>Oversaw the management and creation of Oracle databases by implementing re-runnable scripts</li>
+        <li>Took responsibility for overseeing the maintenance of Linux operating systems and Cisco networks</li>
+        <li>Solved communication problems by mapping business needs to technical requirements</li>
+      </ul>
+    </div>
+
+    <div class="gridBox">
+      <div class="leftAlign">
+        <h3>Computer Lab Technician</h3>
+        <p>South Puget Sound Community College</p>
+      </div>
+      <div class="rightAlign">
+        <h3>[From May 2011 - July 2013]</h3>
+        <p>Olympia, Washington</p>
+      </div>
+      <ul>
+        <li>Responsible for three full labs of computers including hardware and software maintenance</li>
+        <li>Developed mastery of Microsoft Office suite and assisted in using these tools to create various projects</li>
+        <li>Acknowledged several times for being friendly, hard-working, and approachable</li>
+      </ul>
+    </div>
+
+    <h1>Volunteer Experience</h1>
+    <hr>
+
+    <div class="gridBox">
+      <div class="leftAlign">
+        <h3>Frontend Developer | Volunteer</h3>
+        <p>Research and Business Development Center</p>
+      </div>
+      <div class="rightAlign">
+        <h3>[From June 2016 - Present]</h3>
+        <p>Rexburg, Idaho</p>
+      </div>
+      <ul>
+        <li>Worked with Polymer to develop a single page application modularized with custom components</li>
+        <li>Implemented Polymerfire to develop an importer tool to handle data from the IPEDS database</li>
+        <li>Worked in a team with Git to use a Firebase real-time database to update and query data from the IPEDS database</li>
+        <li>Used scaffolding and automation tools like Yeomen, Gulp, Bower, and NPM to create a development environment</li>
+      </ul>
+    </div>
+
+  </template>
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'my-employ',
+      properties: {
+      }
+    });
+  })();
+  </script>
+</dom-module>

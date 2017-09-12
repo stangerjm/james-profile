@@ -1,0 +1,101 @@
+<link rel="import" href="..\..\bower_components/polymer/polymer.html">
+<link rel="import" href="..\..\bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="..\..\bower_components/polymerfire/firebase-query.html">
+<link rel="import" href="..\..\bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="..\..\bower_components/paper-input/paper-input.html">
+<link rel="import" href="..\..\bower_components/paper-button/paper-button.html">
+
+
+<dom-module id="ad-page">
+  <template>
+    <style>
+      :host{
+        display: block;
+      }
+      p{
+        display: inline;
+      }
+      .block{
+        display: block;
+        margin-bottom: 20px;
+      }
+    </style>
+
+    <template is="dom-if" if="{{user}}">
+      <firebase-query
+        id="query"
+        path="/language"
+        data="{{languages}}">
+      </firebase-query>
+    </template>
+
+
+    <div hidden$="{{!user}}" class="yellow">
+        <h1>Welcome, James</h1>
+        <h4>What would you like to do?</h4>
+
+
+
+      <template is="dom-repeat" items="{{languages}}" as="language">
+        <div class="block">
+          <p>[[language.name]] <span hidden$="{{!language.description}}">: <br> </span>  [[language.description]]</p>
+          <paper-icon-button icon="clear" data="[[language]]" on-tap="remove" style="color: red"></paper-icon-button>
+          <br>
+          <input is="iron-input" hidden$="{{!hide}}" bind-value="{{language.name}}" required>
+          <input is="iron-input" hidden$="{{!hide}}" bind-value="{{language.description}}">
+        </div>
+      </template>
+
+
+      <paper-input id="input" label="Add Language"></paper-input>
+      <paper-input id="descInput" label="Description"></paper-input>
+      <paper-button raised on-tap="add">Add Language</paper-button>
+      <paper-button raised on-tap="showBox">Edit</paper-button>
+    </div>
+
+
+  </template>
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'ad-page',
+      properties: {
+        user: {
+          type: Object
+        },
+        languages:{
+          type: Object
+        },
+        hide: {
+          type: Boolean,
+          value: false
+        }
+      },
+      add: function(){
+        if(this.$.input.value !== "" && this.$.input.value !== "Please enter some value"){
+          this.$$('#query').ref.push({
+            name: this.$.input.value,
+            description: this.$.descInput.value
+          });
+          this.$.input.value = "";
+          this.$.descInput.value = "";
+        } else{
+          this.$.input.value = "Please enter some value";
+        }
+      },
+      remove: function(e){
+        var key = e.currentTarget.data.$key;
+        this.$$('#query').ref.child(key).remove();
+      },
+      showBox: function(){
+        if(!this.hide){
+          this.hide = true;
+        } else {
+          this.hide = false;
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>
