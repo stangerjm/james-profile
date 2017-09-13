@@ -3,4 +3,4 @@
 git add --all
 git commit -m "Automated Deploy"
 git push
-git build-deploy-gh-pages
+gulp build-deploy-gh-pages
