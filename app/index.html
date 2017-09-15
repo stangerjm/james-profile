@@ -75,16 +75,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- endbuild -->
 
   <template is="dom-bind" id="app">
-
-    <template is="dom-bind" id="app">
-      <!-- hook up to my database -->
-      <firebase-app
-        id="firebase"
-        auth-domain="profile-e53a5.firebaseapp.com"
-        database-url="https://profile-e53a5.firebaseio.com"
-        api-key="AIzaSyANNw49N4AVMgpulVFV6lmZrz4ihgoZI34">
-      </firebase-app>
-      <ctrl-view></ctrl-view>
+    <!-- hook up to my database -->
+    <firebase-app
+      id="firebase"
+      auth-domain="profile-e53a5.firebaseapp.com"
+      database-url="https://profile-e53a5.firebaseio.com"
+      api-key="AIzaSyANNw49N4AVMgpulVFV6lmZrz4ihgoZI34">
+    </firebase-app>
+    <ctrl-view></ctrl-view>
 
   </template>
 
