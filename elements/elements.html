@@ -23874,11 +23874,24 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         "main main main";
         min-height: 400px;
       }
-
+      .app-container2{
+        display: grid;
+        grid-template-columns: 500px auto;
+        grid-template-areas:
+        "admin footer";
+        background-color: #FBA100;
+        position: relative;
+        bottom: 0;
+      }
       .i1 {
           grid-area: main;
       }
-
+      .i2 {
+          grid-area: footer;
+      }
+      .i3 {
+          grid-area: admin
+      }
       .inline{
         display: inline-block;
       }
@@ -23906,6 +23919,12 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         text-decoration: none;
       }
       @media only screen and (max-width: 800px){
+        .app-container2{
+          grid-template-columns: 250px auto;
+          grid-template-areas:
+          "footer footer"
+          "admin admin"
+        }
         #title{
           font-size: 45px;
         }
@@ -23950,6 +23969,19 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         </app-router>
       </div>
     </div>
+
+    <div class="app-container2">
+      <div class="i2">
+        <p class="white">This is my login component. It is authorized through Google's Firebase so that only I can log in. Once I
+           successfully log in I am able to manage my database through an interface implementing Polymer's Polymerfire
+           components without actually having to go to my database. </p>
+      </div>
+      <div class="i3">
+        <ad-login></ad-login>
+      </div>
+    </div>
+
+
 
   </template>
   <script>
@@ -24727,8 +24759,6 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         grid-template-areas:
         "admin footer";
         background-color: #FBA100;
-        position: relative;
-        bottom: 0;
         color: white;
       }
 
