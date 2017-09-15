@@ -23847,6 +23847,13 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         color: black;
         height: 100%;
       }
+
+      .main-grid{
+        display: grid;
+        grid-template-rows: auto auto auto;
+        height: 100%;
+      }
+
       .dummy{
         color: #6BBAA7;
         color: #FBA100;
@@ -23939,51 +23946,50 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         color: #fff;
       }
     </style>
-    <app-header style="height: auto; background-color: #6BBAA7" condenses="" fixed="">
-      <app-toolbar style="height: auto;">
-        <div main-title="">
-          <h1 class="inline left" id="title"><a class="nope" href="/james-profile">James Stanger</a></h1>
+    <div class="main-grid">
+      <app-header style="height: auto; background-color: #6BBAA7" condenses="" fixed="">
+        <app-toolbar style="height: auto;">
+          <div main-title="">
+            <h1 class="inline left" id="title"><a class="nope" href="/james-profile">James Stanger</a></h1>
+          </div>
+        </app-toolbar>
+
+        <app-toolbar>
+          <h4 class="left" id="info">(360) 485-9925 | jamesstanger987@gmail.com | <a style="color: white" href="http://linkedin.com/in/james-m-stanger" target="_blank">linkedin.com/in/james-m-stanger</a> | Rexburg,ID</h4>
+        </app-toolbar>
+        <paper-tabs style="background-color: #FBA100" sticky="" scrollable="" fit-container="">
+          <paper-tab link=""><a href="#/education">Education</a></paper-tab>
+          <paper-tab link=""><a href="#/employment">Experience</a></paper-tab>
+          <paper-tab link=""><a href="#/langs">Achievements</a></paper-tab>
+          <paper-tab link=""><a href="#/examples">Examples</a></paper-tab>
+        </paper-tabs>
+      </app-header>
+
+
+      <div class="left app-container">
+        <div class="i1">
+          <app-router>
+            
+            <app-route path="/langs" element="lang-list"></app-route>
+            <app-route path="/education" element="my-edu"></app-route>
+            <app-route path="/employment" element="my-employ"></app-route>
+            <app-route path="/examples" element="ex-projects"></app-route>
+            <app-route path="*" element="home-view"></app-route>
+          </app-router>
         </div>
-      </app-toolbar>
+      </div>
 
-      <app-toolbar>
-        <h4 class="left" id="info">(360) 485-9925 | jamesstanger987@gmail.com | <a style="color: white" href="http://linkedin.com/in/james-m-stanger" target="_blank">linkedin.com/in/james-m-stanger</a> | Rexburg,ID</h4>
-      </app-toolbar>
-      <paper-tabs style="background-color: #FBA100" sticky="" scrollable="" fit-container="">
-        <paper-tab link=""><a href="#/education">Education</a></paper-tab>
-        <paper-tab link=""><a href="#/employment">Experience</a></paper-tab>
-        <paper-tab link=""><a href="#/langs">Achievements</a></paper-tab>
-        <paper-tab link=""><a href="#/examples">Examples</a></paper-tab>
-      </paper-tabs>
-    </app-header>
-
-
-    <div class="left app-container">
-      <div class="i1">
-        <app-router>
-          
-          <app-route path="/langs" element="lang-list"></app-route>
-          <app-route path="/education" element="my-edu"></app-route>
-          <app-route path="/employment" element="my-employ"></app-route>
-          <app-route path="/examples" element="ex-projects"></app-route>
-          <app-route path="*" element="home-view"></app-route>
-        </app-router>
+      <div class="app-container2">
+        <div class="i2">
+          <p class="white">This is my login component. It is authorized through Google's Firebase so that only I can log in. Once I
+             successfully log in I am able to manage my database through an interface implementing Polymer's Polymerfire
+             components without actually having to go to my database. </p>
+        </div>
+        <div class="i3">
+          <ad-login></ad-login>
+        </div>
       </div>
     </div>
-
-    <div class="app-container2">
-      <div class="i2">
-        <p class="white">This is my login component. It is authorized through Google's Firebase so that only I can log in. Once I
-           successfully log in I am able to manage my database through an interface implementing Polymer's Polymerfire
-           components without actually having to go to my database. </p>
-      </div>
-      <div class="i3">
-        <ad-login></ad-login>
-      </div>
-    </div>
-
-
-
   </template>
   <script>
   (function() {
