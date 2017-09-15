@@ -23845,13 +23845,22 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         background-color: grey;
         --paper-tabs-selection-bar-color: black;
         color: black;
-        height: 100%;
       }
 
       .main-grid{
         display: grid;
         grid-template-rows: auto auto auto;
         height: 100%;
+      }
+
+      .header-container{
+        display: grid;
+        grid-template-rows: auto auto auto;
+        height: 100%;
+      }
+
+      .nav-tabs{
+        align-self: end;
       }
 
       .dummy{
@@ -23948,21 +23957,28 @@ is separate from validation, and `allowed-pattern` does not affect how the input
     </style>
     <div class="main-grid">
       <app-header style="height: auto; background-color: #6BBAA7" condenses="" fixed="">
-        <app-toolbar style="height: auto;">
-          <div main-title="">
-            <h1 class="inline left" id="title"><a class="nope" href="/james-profile">James Stanger</a></h1>
+        <div class="header-container">
+          <div class="toolbar-title">
+            <app-toolbar style="height: auto;">
+              <div main-title="">
+                <h1 class="inline left" id="title"><a class="nope" href="/james-profile">James Stanger</a></h1>
+              </div>
+            </app-toolbar>
           </div>
-        </app-toolbar>
-
-        <app-toolbar>
-          <h4 class="left" id="info">(360) 485-9925 | jamesstanger987@gmail.com | <a style="color: white" href="http://linkedin.com/in/james-m-stanger" target="_blank">linkedin.com/in/james-m-stanger</a> | Rexburg,ID</h4>
-        </app-toolbar>
-        <paper-tabs style="background-color: #FBA100" sticky="" scrollable="" fit-container="">
-          <paper-tab link=""><a href="#/education">Education</a></paper-tab>
-          <paper-tab link=""><a href="#/employment">Experience</a></paper-tab>
-          <paper-tab link=""><a href="#/langs">Achievements</a></paper-tab>
-          <paper-tab link=""><a href="#/examples">Examples</a></paper-tab>
-        </paper-tabs>
+          <div class="toolbar-details">
+            <app-toolbar>
+              <h4 class="left" id="info">(360) 485-9925 | jamesstanger987@gmail.com | <a style="color: white" href="http://linkedin.com/in/james-m-stanger" target="_blank">linkedin.com/in/james-m-stanger</a> | Rexburg,ID</h4>
+            </app-toolbar>
+          </div>
+          <div class="nav-tabs">
+            <paper-tabs style="background-color: #FBA100" sticky="" scrollable="" fit-container="">
+              <paper-tab link=""><a href="#/education">Education</a></paper-tab>
+              <paper-tab link=""><a href="#/employment">Experience</a></paper-tab>
+              <paper-tab link=""><a href="#/langs">Achievements</a></paper-tab>
+              <paper-tab link=""><a href="#/examples">Examples</a></paper-tab>
+            </paper-tabs>
+          </div>
+        </div>
       </app-header>
 
 
