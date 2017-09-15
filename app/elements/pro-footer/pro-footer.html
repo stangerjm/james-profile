@@ -1,0 +1,76 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="pro-footer">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .app-container2{
+        display: grid;
+        grid-template-columns: 500px auto;
+        grid-template-areas:
+        "admin footer";
+        background-color: #FBA100;
+        position: relative;
+        bottom: 0;
+        color: white;
+      }
+
+      .i2 {
+          grid-area: footer;
+      }
+      .i3 {
+          grid-area: admin
+      }
+
+      @media only screen and (max-width: 800px){
+        .app-container2{
+          grid-template-columns: 250px auto;
+          grid-template-areas:
+          "footer footer"
+          "admin admin"
+        }
+      }
+    </style>
+
+    <div class="app-container2">
+      <div class="i2">
+        <p class="white">This is my login component. It is authorized through Google's Firebase so that only I can log in. Once I
+           successfully log in I am able to manage my database through an interface implementing Polymer's Polymerfire
+           components without actually having to go to my database. </p>
+      </div>
+      <div class="i3">
+        <ad-login></ad-login>
+      </div>
+    </div>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'pro-footer',
+
+      properties: {
+        foo: {
+          type: String,
+          value: 'pro-footer',
+          notify: true
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>
