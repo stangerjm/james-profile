@@ -28,16 +28,18 @@
       <li>Fluent in Japanese with both oral and written skills. Lived in Japan for 2 years (2013 - 2015)</li>
       <li>Proficient with programming and markup languages such as: </li>
     </ul>
-    <template is="dom-repeat" items="{{langs}}" as="lang">
-      <ul>
+    <div id="language-list-container">
+      <template is="dom-repeat" items="{{langs}}" as="lang">
         <ul>
-          <li>{{lang.name}}</li>
           <ul>
-            <li hidden$="{{!lang.description}}">{{lang.description}}</li>
+            <li>{{lang.name}}</li>
+            <ul>
+              <li hidden$="{{!lang.description}}">{{lang.description}}</li>
+            </ul>
           </ul>
         </ul>
-      </ul>
-    </template>
+      </template>
+    </div>
     <ul class="lilSpace">
       <li> Served as the Vice President for both the Brigham Young University - Idaho Web Society and Linux Society</li>
       <li>Eagle Scout, September 2012</li>
