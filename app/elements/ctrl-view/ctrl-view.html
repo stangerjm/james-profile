@@ -65,7 +65,13 @@
         font-family: 'Francois One', sans-serif;
         font-size: 20px;
         font-weight:0;
+        border-right: 1px solid grey;
       }
+
+      #edu {
+        border-left: 1px solid grey;
+      }
+
     .app-container {
         color:white;
         display: grid;
@@ -146,19 +152,19 @@
           <div class="header-container">
             <div class="toolbar-title">
               <app-toolbar style="height: auto;">
-                <div main-title>
+                <div class="left-space" main-title>
                   <h1 class="inline left" id="title"><a class="nope" href="/james-profile">James Stanger</a></h1>
                 </div>
               </app-toolbar>
             </div>
-            <div class="toolbar-details">
+            <div class="toolbar-details left-space">
               <app-toolbar>
                 <h4 class="left" id="info">(360) 485-9925 | jamesstanger987@gmail.com | <a style="color: white" href="http://linkedin.com/in/james-m-stanger" target="_blank">linkedin.com/in/james-m-stanger</a> | Lacey, WA</h4>
               </app-toolbar>
             </div>
             <div class="nav-tabs">
               <paper-tabs style="background-color: #222" sticky scrollable fit-container>
-                <paper-tab link><a href="#/education">Education</a></paper-tab>
+                <paper-tab id="edu" link><a href="#/education">Education</a></paper-tab>
                 <paper-tab link><a href="#/employment">Experience</a></paper-tab>
                 <paper-tab link><a href="#/langs">Achievements</a></paper-tab>
               </paper-tabs>

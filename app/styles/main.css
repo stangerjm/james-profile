@@ -20,3 +20,7 @@ html{
 .page-title {
   outline: none;
 }
+
+.left-space{
+  margin-left: 45px;
+}

@@ -13,7 +13,10 @@
       }
 
       .images{
-        margin: 30px;
+        margin: 30px 30px 30px 45px;
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        justify-items: center;
       }
 
       .images img{
@@ -34,6 +37,7 @@
 
       #firebase{
         max-width: 125px;
+        margin-left: -15px;
       }
 
       @media screen and (max-width: 930px){
@@ -54,18 +58,28 @@
     </style>
 
     <div class="images">
-      <img id="firebase" src="../../images/firebase-logo.png" alt="javascript">
-      <img id="polymer" src="../../images/polymer-logo.png" alt="javascript">
-      <img id="javascript" src="../../images/javascript-logo.png" alt="javascript">
-      <img class="trinity" src="../../images/css-logo.png" alt="javascript">
-      <img class="trinity" src="../../images/HTML-logo.png" alt="javascript">
+      <div class="">
+        <img id="firebase" src="../../images/firebase-logo.png" alt="javascript">
+      </div>
+      <div class="">
+        <img id="polymer" src="../../images/polymer-logo.png" alt="javascript">
+      </div>
+      <div class="">
+        <img id="javascript" src="../../images/javascript-logo.png" alt="javascript">
+      </div>
+      <div class="">
+        <img class="trinity" src="../../images/css-logo.png" alt="javascript">
+      </div>
+      <div class="">
+        <img class="trinity" src="../../images/HTML-logo.png" alt="javascript">
+      </div>
     </div>
     <hr>
-    <p style="max-width: 700px;">This is my portfolio site, coded entirely by myself <i>outside</i> of WordPress.
+    <p class="left-space" style="max-width: 700px;">This is my portfolio site, coded entirely by myself <i>outside</i> of WordPress.
        It is a single-page application built using Polymer and hooked up to a Firebase real-time database to display
        some of my credentials. It is fully responsive, styled with standard CSS3 and the new CSS Grid Layout.</p>
     <br>
-    <p style="max-width: 700px;">Included is a custom CMS in the footer that I built with Polymer so I can
+    <p class="left-space" style="max-width: 700px;">Included is a custom CMS in the footer that I built with Polymer so I can
        manage some of the content with this application without having to work directly with my database.</p>
 
   </template>
