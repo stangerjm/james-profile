@@ -23906,7 +23906,13 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         font-family: 'Francois One', sans-serif;
         font-size: 20px;
         font-weight:0;
+        border-right: 1px solid grey;
       }
+
+      #edu {
+        border-left: 1px solid grey;
+      }
+
     .app-container {
         color:white;
         display: grid;
@@ -23987,19 +23993,19 @@ is separate from validation, and `allowed-pattern` does not affect how the input
           <div class="header-container">
             <div class="toolbar-title">
               <app-toolbar style="height: auto;">
-                <div main-title="">
+                <div class="left-space" main-title="">
                   <h1 class="inline left" id="title"><a class="nope" href="/james-profile">James Stanger</a></h1>
                 </div>
               </app-toolbar>
             </div>
-            <div class="toolbar-details">
+            <div class="toolbar-details left-space">
               <app-toolbar>
                 <h4 class="left" id="info">(360) 485-9925 | jamesstanger987@gmail.com | <a style="color: white" href="http://linkedin.com/in/james-m-stanger" target="_blank">linkedin.com/in/james-m-stanger</a> | Lacey, WA</h4>
               </app-toolbar>
             </div>
             <div class="nav-tabs">
               <paper-tabs style="background-color: #222" sticky="" scrollable="" fit-container="">
-                <paper-tab link=""><a href="#/education">Education</a></paper-tab>
+                <paper-tab id="edu" link=""><a href="#/education">Education</a></paper-tab>
                 <paper-tab link=""><a href="#/employment">Experience</a></paper-tab>
                 <paper-tab link=""><a href="#/langs">Achievements</a></paper-tab>
               </paper-tabs>
@@ -24082,7 +24088,10 @@ is separate from validation, and `allowed-pattern` does not affect how the input
       }
 
       .images{
-        margin: 30px;
+        margin: 30px 30px 30px 45px;
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        justify-items: center;
       }
 
       .images img{
@@ -24103,6 +24112,7 @@ is separate from validation, and `allowed-pattern` does not affect how the input
 
       #firebase{
         max-width: 125px;
+        margin-left: -15px;
       }
 
       @media screen and (max-width: 930px){
@@ -24123,18 +24133,28 @@ is separate from validation, and `allowed-pattern` does not affect how the input
     </style>
 
     <div class="images">
-      <img id="firebase" src="../images/firebase-logo.png" alt="javascript">
-      <img id="polymer" src="../images/polymer-logo.png" alt="javascript">
-      <img id="javascript" src="../images/javascript-logo.png" alt="javascript">
-      <img class="trinity" src="../images/css-logo.png" alt="javascript">
-      <img class="trinity" src="../images/HTML-logo.png" alt="javascript">
+      <div class="">
+        <img id="firebase" src="../images/firebase-logo.png" alt="javascript">
+      </div>
+      <div class="">
+        <img id="polymer" src="../images/polymer-logo.png" alt="javascript">
+      </div>
+      <div class="">
+        <img id="javascript" src="../images/javascript-logo.png" alt="javascript">
+      </div>
+      <div class="">
+        <img class="trinity" src="../images/css-logo.png" alt="javascript">
+      </div>
+      <div class="">
+        <img class="trinity" src="../images/HTML-logo.png" alt="javascript">
+      </div>
     </div>
     <hr>
-    <p style="max-width: 700px;">This is my portfolio site, coded entirely by myself <i>outside</i> of WordPress.
+    <p class="left-space" style="max-width: 700px;">This is my portfolio site, coded entirely by myself <i>outside</i> of WordPress.
        It is a single-page application built using Polymer and hooked up to a Firebase real-time database to display
        some of my credentials. It is fully responsive, styled with standard CSS3 and the new CSS Grid Layout.</p>
     <br>
-    <p style="max-width: 700px;">Included is a custom CMS in the footer that I built with Polymer so I can
+    <p class="left-space" style="max-width: 700px;">Included is a custom CMS in the footer that I built with Polymer so I can
        manage some of the content with this application without having to work directly with my database.</p>
 
   </template>
