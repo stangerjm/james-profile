@@ -10,10 +10,32 @@
     <style>
       :host {
         display: block;
-        background-color: grey;
-        --paper-tabs-selection-bar-color: black;
+        background-color: #222;
+        --paper-tabs-selection-bar-color: #222;
         color: black;
         height: 100%;
+      }
+
+      paper-tabs{
+        border-bottom: 1px solid grey;
+      }
+
+      app-header {
+        background-image: url(../../images/pineapple_computer.jpg);
+        background-repeat: no-repeat;
+        background-size: 1500px;
+      }
+
+      h1#title {
+        margin-top: 50px;
+      }
+
+      .toolbar-title, .toolbar-details{
+        align-self: end;
+      }
+
+      .toolbar-details{
+        padding-bottom: 10px;
       }
 
       .main-grid{
@@ -24,20 +46,14 @@
 
       .header-container{
         display: grid;
-        grid-template-rows: auto auto auto;
-        height: 100%;
+        grid-template-rows: 1fr;
+        height: 400px;
       }
 
       .nav-tabs{
         align-self: end;
       }
 
-      .dummy{
-        color: #6BBAA7;
-        color: #FBA100;
-        color: #6C648B;
-        color: #B6A19E;
-      }
       h1{
         font-size: 90px;
         color: white;
@@ -65,7 +81,8 @@
         grid-template-columns: 500px auto;
         grid-template-areas:
         "admin footer";
-        background-color: #FBA100;
+        background-color: #222;
+        border-top: 1px solid white;
       }
       .i1 {
           grid-area: main;
@@ -111,6 +128,7 @@
         }
         #title{
           font-size: 45px;
+          margin-top: 50px;
         }
         paper-tab{
           font-size: 15px;
@@ -124,7 +142,7 @@
     </style>
     <div class="main-grid">
       <div class="header-main">
-        <app-header style="height: auto; background-color: #6BBAA7" condenses fixed>
+        <app-header condenses fixed>
           <div class="header-container">
             <div class="toolbar-title">
               <app-toolbar style="height: auto;">
@@ -135,11 +153,11 @@
             </div>
             <div class="toolbar-details">
               <app-toolbar>
-                <h4 class="left" id="info">(360) 485-9925 | jamesstanger987@gmail.com | <a style="color: white" href="http://linkedin.com/in/james-m-stanger" target="_blank">linkedin.com/in/james-m-stanger</a> | Rexburg,ID</h4>
+                <h4 class="left" id="info">(360) 485-9925 | jamesstanger987@gmail.com | <a style="color: white" href="http://linkedin.com/in/james-m-stanger" target="_blank">linkedin.com/in/james-m-stanger</a> | Lacey, WA</h4>
               </app-toolbar>
             </div>
             <div class="nav-tabs">
-              <paper-tabs style="background-color: #FBA100" sticky scrollable fit-container>
+              <paper-tabs style="background-color: #222" sticky scrollable fit-container>
                 <paper-tab link><a href="#/education">Education</a></paper-tab>
                 <paper-tab link><a href="#/employment">Experience</a></paper-tab>
                 <paper-tab link><a href="#/langs">Achievements</a></paper-tab>

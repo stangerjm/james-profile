@@ -6,27 +6,67 @@
       :host {
         display: block;
       }
-      #mainH{
-        font-size: 65px;
-        transition: font-size 2s;
-      }
-      #mainH:hover{
-        font-size: 85px;
-      }
 
       p{
         max-width: 700px;
         font-size: 25px;
       }
+
+      .images{
+        margin: 30px;
+      }
+
+      .images img{
+        margin: 30px;
+      }
+
+      .trinity{
+        max-width: 110px;
+      }
+
+      #javascript{
+        max-width: 95px;
+      }
+
+      #polymer{
+        max-width: 100px;
+      }
+
+      #firebase{
+        max-width: 125px;
+      }
+
+      @media screen and (max-width: 930px){
+        .images img{
+          margin: 0px;
+          width: 55px;
+        }
+
+        #firebase{
+          width: 65px;
+        }
+
+        #javascript{
+          width: 48px;
+        }
+      }
+
     </style>
 
-    <h1 id="mainH">Welcome</h1>
+    <div class="images">
+      <img id="firebase" src="../../images/firebase-logo.png" alt="javascript">
+      <img id="polymer" src="../../images/polymer-logo.png" alt="javascript">
+      <img id="javascript" src="../../images/javascript-logo.png" alt="javascript">
+      <img class="trinity" src="../../images/css-logo.png" alt="javascript">
+      <img class="trinity" src="../../images/HTML-logo.png" alt="javascript">
+    </div>
     <hr>
-    <p style="max-width: 700px;">This is my portfolio site, coded entirely by myself.
+    <p style="max-width: 700px;">This is my portfolio site, coded entirely by myself <i>outside</i> of WordPress.
        It is a single-page application built using Polymer and hooked up to a Firebase real-time database to display
-       some of my credentials. It is fully responsive, styled with standard CSS3 and the new CSS Grid Layout. Included
-       also are some of my own fun projects that I have made to learn some of the more complex concepts and languages
-       found today on the web.</p>
+       some of my credentials. It is fully responsive, styled with standard CSS3 and the new CSS Grid Layout.</p>
+    <br>
+    <p style="max-width: 700px;">Included is a custom CMS in the footer that I built with Polymer so I can
+       manage some of the content with this application without having to work directly with my database.</p>
 
   </template>
   <script>
