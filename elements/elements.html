@@ -20444,8 +20444,17 @@ is separate from validation, and `allowed-pattern` does not affect how the input
       :host {
         display: block;
         max-width: auto;
-        --paper-input-container-color: #162129;
+        --paper-input-container-color: white;
+        --paper-input-container-input-color: white;
+        --paper-input-container-focus-color: #eee;
+        color: white;
       }
+
+      paper-input{
+        border-radius: 10px;
+        margin: 10px;
+      }
+
       h3{
         text-align: center;
       }
@@ -23842,10 +23851,32 @@ is separate from validation, and `allowed-pattern` does not affect how the input
     <style>
       :host {
         display: block;
-        background-color: grey;
-        --paper-tabs-selection-bar-color: black;
+        background-color: #222;
+        --paper-tabs-selection-bar-color: #222;
         color: black;
         height: 100%;
+      }
+
+      paper-tabs{
+        border-bottom: 1px solid grey;
+      }
+
+      app-header {
+        background-image: url("../images/pineapple_computer.jpg");
+        background-repeat: no-repeat;
+        background-size: 1500px;
+      }
+
+      h1#title {
+        margin-top: 50px;
+      }
+
+      .toolbar-title, .toolbar-details{
+        align-self: end;
+      }
+
+      .toolbar-details{
+        padding-bottom: 10px;
       }
 
       .main-grid{
@@ -23856,20 +23887,14 @@ is separate from validation, and `allowed-pattern` does not affect how the input
 
       .header-container{
         display: grid;
-        grid-template-rows: auto auto auto;
-        height: 100%;
+        grid-template-rows: 1fr;
+        height: 400px;
       }
 
       .nav-tabs{
         align-self: end;
       }
 
-      .dummy{
-        color: #6BBAA7;
-        color: #FBA100;
-        color: #6C648B;
-        color: #B6A19E;
-      }
       h1{
         font-size: 90px;
         color: white;
@@ -23897,7 +23922,8 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         grid-template-columns: 500px auto;
         grid-template-areas:
         "admin footer";
-        background-color: #FBA100;
+        background-color: #222;
+        border-top: 1px solid white;
       }
       .i1 {
           grid-area: main;
@@ -23943,6 +23969,7 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         }
         #title{
           font-size: 45px;
+          margin-top: 50px;
         }
         paper-tab{
           font-size: 15px;
@@ -23956,7 +23983,7 @@ is separate from validation, and `allowed-pattern` does not affect how the input
     </style>
     <div class="main-grid">
       <div class="header-main">
-        <app-header style="height: auto; background-color: #6BBAA7" condenses="" fixed="">
+        <app-header condenses="" fixed="">
           <div class="header-container">
             <div class="toolbar-title">
               <app-toolbar style="height: auto;">
@@ -23967,11 +23994,11 @@ is separate from validation, and `allowed-pattern` does not affect how the input
             </div>
             <div class="toolbar-details">
               <app-toolbar>
-                <h4 class="left" id="info">(360) 485-9925 | jamesstanger987@gmail.com | <a style="color: white" href="http://linkedin.com/in/james-m-stanger" target="_blank">linkedin.com/in/james-m-stanger</a> | Rexburg,ID</h4>
+                <h4 class="left" id="info">(360) 485-9925 | jamesstanger987@gmail.com | <a style="color: white" href="http://linkedin.com/in/james-m-stanger" target="_blank">linkedin.com/in/james-m-stanger</a> | Lacey, WA</h4>
               </app-toolbar>
             </div>
             <div class="nav-tabs">
-              <paper-tabs style="background-color: #FBA100" sticky="" scrollable="" fit-container="">
+              <paper-tabs style="background-color: #222" sticky="" scrollable="" fit-container="">
                 <paper-tab link=""><a href="#/education">Education</a></paper-tab>
                 <paper-tab link=""><a href="#/employment">Experience</a></paper-tab>
                 <paper-tab link=""><a href="#/langs">Achievements</a></paper-tab>
@@ -24048,27 +24075,67 @@ is separate from validation, and `allowed-pattern` does not affect how the input
       :host {
         display: block;
       }
-      #mainH{
-        font-size: 65px;
-        transition: font-size 2s;
-      }
-      #mainH:hover{
-        font-size: 85px;
-      }
 
       p{
         max-width: 700px;
         font-size: 25px;
       }
+
+      .images{
+        margin: 30px;
+      }
+
+      .images img{
+        margin: 30px;
+      }
+
+      .trinity{
+        max-width: 110px;
+      }
+
+      #javascript{
+        max-width: 95px;
+      }
+
+      #polymer{
+        max-width: 100px;
+      }
+
+      #firebase{
+        max-width: 125px;
+      }
+
+      @media screen and (max-width: 930px){
+        .images img{
+          margin: 0px;
+          width: 55px;
+        }
+
+        #firebase{
+          width: 65px;
+        }
+
+        #javascript{
+          width: 48px;
+        }
+      }
+
     </style>
 
-    <h1 id="mainH">Welcome</h1>
+    <div class="images">
+      <img id="firebase" src="../images/firebase-logo.png" alt="javascript">
+      <img id="polymer" src="../images/polymer-logo.png" alt="javascript">
+      <img id="javascript" src="../images/javascript-logo.png" alt="javascript">
+      <img class="trinity" src="../images/css-logo.png" alt="javascript">
+      <img class="trinity" src="../images/HTML-logo.png" alt="javascript">
+    </div>
     <hr>
-    <p style="max-width: 700px;">This is my portfolio site, coded entirely by myself.
+    <p style="max-width: 700px;">This is my portfolio site, coded entirely by myself <i>outside</i> of WordPress.
        It is a single-page application built using Polymer and hooked up to a Firebase real-time database to display
-       some of my credentials. It is fully responsive, styled with standard CSS3 and the new CSS Grid Layout. Included
-       also are some of my own fun projects that I have made to learn some of the more complex concepts and languages
-       found today on the web.</p>
+       some of my credentials. It is fully responsive, styled with standard CSS3 and the new CSS Grid Layout.</p>
+    <br>
+    <p style="max-width: 700px;">Included is a custom CMS in the footer that I built with Polymer so I can
+       manage some of the content with this application without having to work directly with my database.</p>
 
   </template>
   <script>
@@ -24284,6 +24351,11 @@ is separate from validation, and `allowed-pattern` does not affect how the input
       .lilSpace > li{
         padding: 8px;
       }
+
+      #title{
+        margin-top: 80px;
+      }
+
       @media only screen and (max-width: 800px){
         #title{
           font-size: 25px;
@@ -24340,6 +24412,11 @@ is separate from validation, and `allowed-pattern` does not affect how the input
       :host {
         display: block;
       }
+
+      h1 {
+        margin-top: 80px;
+      }
+
       .gridBox{
         display: grid;
         grid-gap: 10px;
@@ -24409,6 +24486,11 @@ is separate from validation, and `allowed-pattern` does not affect how the input
       :host {
         display: block;
       }
+
+      h1 {
+        margin-top: 80px;
+      }
+
       .gridBox{
         display: grid;
         grid-gap: 10px;
