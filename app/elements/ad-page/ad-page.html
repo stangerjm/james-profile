@@ -19,12 +19,28 @@
         display: block;
         margin-bottom: 20px;
       }
+
+      input{
+        width: 100px;
+        height: 30px;
+        margin: 20px;
+      }
+
+      input:nth-child(2){
+        width: 400px;
+      }
+
+      select{
+        width: 150px;
+        height: 40px;
+        margin-bottom: 20px;
+      }
     </style>
 
     <template is="dom-if" if="{{user}}">
       <firebase-query
         id="query"
-        path="/language"
+        path="{{path}}"
         data="{{languages}}">
       </firebase-query>
     </template>
@@ -34,22 +50,28 @@
         <h1>Welcome, James</h1>
         <h4>What would you like to do?</h4>
 
-
+        <select class="" value="{{path::change}}" name="database-select">
+          <option selected>Select Database</option>
+          <option value="/language">Languages</option>
+          <option value="/skills">Skills</option>
+        </select>
 
       <template is="dom-repeat" items="{{languages}}" as="language">
         <div class="block">
           <p>[[language.name]] <span hidden$="{{!language.description}}">: <br> </span>  [[language.description]]</p>
           <paper-icon-button icon="clear" data="[[language]]" on-tap="remove" style="color: red"></paper-icon-button>
           <br>
-          <input is="iron-input" hidden$="{{!hide}}" bind-value="{{language.name}}" required>
-          <input is="iron-input" hidden$="{{!hide}}" bind-value="{{language.description}}">
+          <div class="input-container">
+            <input is="iron-input" hidden$="{{!hide}}" bind-value="{{language.name}}" required>
+            <input is="iron-input" hidden$="{{!hide}}" bind-value="{{language.description}}">
+          </div>
         </div>
       </template>
 
 
-      <paper-input id="input" label="Add Language"></paper-input>
+      <paper-input id="input" label="Name"></paper-input>
       <paper-input id="descInput" label="Description"></paper-input>
-      <paper-button raised on-tap="add">Add Language</paper-button>
+      <paper-button raised on-tap="add">Add</paper-button>
       <paper-button raised on-tap="showBox">Edit</paper-button>
     </div>
 
@@ -70,7 +92,15 @@
         hide: {
           type: Boolean,
           value: false
+        },
+        path: {
+          type: String,
+          observer: '_observer'
         }
+      },
+
+      _observer: function(v){
+        console.log(v);
       },
       add: function(){
         if(this.$.input.value !== "" && this.$.input.value !== "Please enter some value"){
@@ -94,6 +124,9 @@
         } else {
           this.hide = false;
         }
+      },
+      showStuff: function(){
+        console.log("looks like it worked");
       }
     });
   })();

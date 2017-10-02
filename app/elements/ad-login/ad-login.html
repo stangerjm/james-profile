@@ -63,6 +63,9 @@
         clicked: {
           type: Boolean,
           value: true
+        },
+        type: {
+          type: Number
         }
       },
       login: function(){
@@ -74,6 +77,7 @@
         return this.$.auth.signOut();
       },
       doClick: function(){
+        console.log(this.type);
         if(this.clicked){
           this.clicked = false;
         } else{
