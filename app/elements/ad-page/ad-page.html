@@ -15,6 +15,7 @@
       p{
         display: inline;
       }
+
       .block{
         display: block;
         margin-bottom: 20px;
@@ -35,13 +36,24 @@
         height: 40px;
         margin-bottom: 20px;
       }
+
+      #experience p{
+        display: block;
+      }
+
+      #experience input{
+        width: 100px;
+        height: 30px;
+        margin: 20px;
+        display: block;
+      }
     </style>
 
     <template is="dom-if" if="{{user}}">
       <firebase-query
         id="query"
         path="{{path}}"
-        data="{{languages}}">
+        data="{{items}}">
       </firebase-query>
     </template>
 
@@ -54,24 +66,63 @@
           <option selected>Select Database</option>
           <option value="/language">Languages</option>
           <option value="/skills">Skills</option>
+          <option value="/experience">Experience</option>
         </select>
 
-      <template is="dom-repeat" items="{{languages}}" as="language">
-        <div class="block">
-          <p>[[language.name]] <span hidden$="{{!language.description}}">: <br> </span>  [[language.description]]</p>
-          <paper-icon-button icon="clear" data="[[language]]" on-tap="remove" style="color: red"></paper-icon-button>
-          <br>
-          <div class="input-container">
-            <input is="iron-input" hidden$="{{!hide}}" bind-value="{{language.name}}" required>
-            <input is="iron-input" hidden$="{{!hide}}" bind-value="{{language.description}}">
+        <template is="dom-repeat" items="{{items}}" as="item">
+          <div hidden$="{{!exp}}" class="block">
+            <p>[[item.name]] <span hidden$="{{!item.description}}">: <br> </span>  [[item.description]]</p>
+            <paper-icon-button icon="clear" data="[[item]]" on-tap="remove" style="color: red"></paper-icon-button>
+            <br>
+            <div class="input-container">
+              <input is="iron-input" hidden$="{{!hide}}" bind-value="{{item.name}}" required>
+              <input is="iron-input" hidden$="{{!hide}}" bind-value="{{item.description}}">
+            </div>
           </div>
-        </div>
+        </template>
+
+
+      <template is="dom-if" if="{{!exp}}" id="expIf">
+        <template is="dom-repeat" items="{{items}}" as="item">
+          <div id="experience" hidden$="{{exp}}" class="block">
+            <p>Area: [[item.area]]</p>
+            <input is="iron-input" hidden$="{{!hide}}" bind-value="{{item.area}}" required>
+            <p>Time: [[item.time]]</p>
+            <input is="iron-input" hidden$="{{!hide}}" bind-value="{{item.time}}">
+            <p>Title: [[item.title]]</p>
+            <input is="iron-input" hidden$="{{!hide}}" bind-value="{{item.title}}">
+            <p>Subtitle: [[item.subtitle]]</p>
+            <input is="iron-input" hidden$="{{!hide}}" bind-value="{{item.subtitle}}">
+            <p>Job Description Items:</p>
+            <template is="dom-if" if="{{!exp}}" id="expIf">
+              <template is="dom-repeat" items="{{item.description}}" as="desc">
+                <p class="left-space">[[desc]]</p>
+                <input class="left-space" is="iron-input" hidden$="{{!hide}}" bind-value="{{desc}}">
+              </template>
+            </template>
+            <paper-icon-button icon="clear" data="[[item]]" on-tap="remove" style="color: red"></paper-icon-button>
+            <br>
+          </div>
+        </template>
       </template>
 
+      <div hidden$="{{!exp}}">
+        <paper-input id="input" label="Name"></paper-input>
+        <paper-input id="descInput" label="Description"></paper-input>
+        <paper-button raised on-tap="add">Add</paper-button>
+      </div>
+      <div hidden$="{{exp}}">
+        <div id="exInputs">
+          <paper-input id="areaInput" label="Area"></paper-input>
+          <paper-input id="timeInput" label="Date"></paper-input>
+          <paper-input id="titleInput" label="Title"></paper-input>
+          <paper-input id="subInput" label="Subtitle"></paper-input>
+          <paper-input id="descriptionInput" class="descIn" label="Description"></paper-input>
+        </div>
+        <paper-button raised on-tap="addDesc">Add Description</paper-button>
+        <paper-button raised on-tap="addExp">Add</paper-button>
+      </div>
 
-      <paper-input id="input" label="Name"></paper-input>
-      <paper-input id="descInput" label="Description"></paper-input>
-      <paper-button raised on-tap="add">Add</paper-button>
       <paper-button raised on-tap="showBox">Edit</paper-button>
     </div>
 
@@ -86,7 +137,7 @@
         user: {
           type: Object
         },
-        languages:{
+        items:{
           type: Object
         },
         hide: {
@@ -96,11 +147,21 @@
         path: {
           type: String,
           observer: '_observer'
+        },
+        exp: {
+          type: Boolean,
+          value: false
         }
       },
 
       _observer: function(v){
-        console.log(v);
+        this.$.expIf.notifyDomChange = true;
+        if(v == "/experience"){
+          this.exp = false;
+        } else {
+          this.exp = true;
+        }
+        console.log(this.exp);
       },
       add: function(){
         if(this.$.input.value !== "" && this.$.input.value !== "Please enter some value"){
@@ -114,6 +175,28 @@
           this.$.input.value = "Please enter some value";
         }
       },
+      addExp: function(){
+        var desc = [];
+        var descInputs = this.querySelectorAll(".descIn");
+        descInputs.forEach(function(input){
+          desc.push(input.value);
+        });
+        this.$$('#query').ref.push({
+          area: this.$.areaInput.value,
+          description: desc,
+          subtitle: this.$.subInput.value,
+          time: this.$.timeInput.value,
+          title: this.$.titleInput.value
+        });
+        this.$.areaInput.value = "";
+        descInputs.forEach(function(input){
+          input.remove();
+        });
+        this.$.subInput.value = "";
+        this.$.timeInput.value = "";
+        this.$.titleInput.value = "";
+        this.addDesc();
+      },
       remove: function(e){
         var key = e.currentTarget.data.$key;
         this.$$('#query').ref.child(key).remove();
@@ -125,8 +208,11 @@
           this.hide = false;
         }
       },
-      showStuff: function(){
-        console.log("looks like it worked");
+      addDesc: function(){
+        var node = document.createElement("paper-input");
+        node.setAttribute('class','descIn');
+        node.label = "Description";
+        Polymer.dom(this.$.exInputs).appendChild(node);
       }
     });
   })();
