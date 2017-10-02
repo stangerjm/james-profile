@@ -21705,6 +21705,7 @@ is separate from validation, and `allowed-pattern` does not affect how the input
       p{
         display: inline;
       }
+
       .block{
         display: block;
         margin-bottom: 20px;
@@ -21725,10 +21726,21 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         height: 40px;
         margin-bottom: 20px;
       }
+
+      #experience p{
+        display: block;
+      }
+
+      #experience input{
+        width: 100px;
+        height: 30px;
+        margin: 20px;
+        display: block;
+      }
     </style>
 
     <template is="dom-if" if="{{user}}">
-      <firebase-query id="query" path="{{path}}" data="{{languages}}">
+      <firebase-query id="query" path="{{path}}" data="{{items}}">
       </firebase-query>
     </template>
 
@@ -21741,24 +21753,63 @@ is separate from validation, and `allowed-pattern` does not affect how the input
           <option selected="">Select Database</option>
           <option value="/language">Languages</option>
           <option value="/skills">Skills</option>
+          <option value="/experience">Experience</option>
         </select>
 
-      <template is="dom-repeat" items="{{languages}}" as="language">
-        <div class="block">
-          <p>[[language.name]] <span hidden$="{{!language.description}}">: <br> </span>  [[language.description]]</p>
-          <paper-icon-button icon="clear" data="[[language]]" on-tap="remove" style="color: red"></paper-icon-button>
-          <br>
-          <div class="input-container">
-            <input is="iron-input" hidden$="{{!hide}}" bind-value="{{language.name}}" required="">
-            <input is="iron-input" hidden$="{{!hide}}" bind-value="{{language.description}}">
+        <template is="dom-repeat" items="{{items}}" as="item">
+          <div hidden$="{{!exp}}" class="block">
+            <p>[[item.name]] <span hidden$="{{!item.description}}">: <br> </span>  [[item.description]]</p>
+            <paper-icon-button icon="clear" data="[[item]]" on-tap="remove" style="color: red"></paper-icon-button>
+            <br>
+            <div class="input-container">
+              <input is="iron-input" hidden$="{{!hide}}" bind-value="{{item.name}}" required="">
+              <input is="iron-input" hidden$="{{!hide}}" bind-value="{{item.description}}">
+            </div>
           </div>
-        </div>
+        </template>
+
+
+      <template is="dom-if" if="{{!exp}}" id="expIf">
+        <template is="dom-repeat" items="{{items}}" as="item">
+          <div id="experience" hidden$="{{exp}}" class="block">
+            <p>Area: [[item.area]]</p>
+            <input is="iron-input" hidden$="{{!hide}}" bind-value="{{item.area}}" required="">
+            <p>Time: [[item.time]]</p>
+            <input is="iron-input" hidden$="{{!hide}}" bind-value="{{item.time}}">
+            <p>Title: [[item.title]]</p>
+            <input is="iron-input" hidden$="{{!hide}}" bind-value="{{item.title}}">
+            <p>Subtitle: [[item.subtitle]]</p>
+            <input is="iron-input" hidden$="{{!hide}}" bind-value="{{item.subtitle}}">
+            <p>Job Description Items:</p>
+            <template is="dom-if" if="{{!exp}}" id="expIf">
+              <template is="dom-repeat" items="{{item.description}}" as="desc">
+                <p class="left-space">[[desc]]</p>
+                <input class="left-space" is="iron-input" hidden$="{{!hide}}" bind-value="{{desc}}">
+              </template>
+            </template>
+            <paper-icon-button icon="clear" data="[[item]]" on-tap="remove" style="color: red"></paper-icon-button>
+            <br>
+          </div>
+        </template>
       </template>
 
+      <div hidden$="{{!exp}}">
+        <paper-input id="input" label="Name"></paper-input>
+        <paper-input id="descInput" label="Description"></paper-input>
+        <paper-button raised="" on-tap="add">Add</paper-button>
+      </div>
+      <div hidden$="{{exp}}">
+        <div id="exInputs">
+          <paper-input id="areaInput" label="Area"></paper-input>
+          <paper-input id="timeInput" label="Date"></paper-input>
+          <paper-input id="titleInput" label="Title"></paper-input>
+          <paper-input id="subInput" label="Subtitle"></paper-input>
+          <paper-input id="descriptionInput" class="descIn" label="Description"></paper-input>
+        </div>
+        <paper-button raised="" on-tap="addDesc">Add Description</paper-button>
+        <paper-button raised="" on-tap="addExp">Add</paper-button>
+      </div>
 
-      <paper-input id="input" label="Name"></paper-input>
-      <paper-input id="descInput" label="Description"></paper-input>
-      <paper-button raised="" on-tap="add">Add</paper-button>
       <paper-button raised="" on-tap="showBox">Edit</paper-button>
     </div>
 
@@ -21773,7 +21824,7 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         user: {
           type: Object
         },
-        languages:{
+        items:{
           type: Object
         },
         hide: {
@@ -21783,11 +21834,21 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         path: {
           type: String,
           observer: '_observer'
+        },
+        exp: {
+          type: Boolean,
+          value: false
         }
       },
 
       _observer: function(v){
-        console.log(v);
+        this.$.expIf.notifyDomChange = true;
+        if(v == "/experience"){
+          this.exp = false;
+        } else {
+          this.exp = true;
+        }
+        console.log(this.exp);
       },
       add: function(){
         if(this.$.input.value !== "" && this.$.input.value !== "Please enter some value"){
@@ -21801,6 +21862,28 @@ is separate from validation, and `allowed-pattern` does not affect how the input
           this.$.input.value = "Please enter some value";
         }
       },
+      addExp: function(){
+        var desc = [];
+        var descInputs = this.querySelectorAll(".descIn");
+        descInputs.forEach(function(input){
+          desc.push(input.value);
+        });
+        this.$$('#query').ref.push({
+          area: this.$.areaInput.value,
+          description: desc,
+          subtitle: this.$.subInput.value,
+          time: this.$.timeInput.value,
+          title: this.$.titleInput.value
+        });
+        this.$.areaInput.value = "";
+        descInputs.forEach(function(input){
+          input.remove();
+        });
+        this.$.subInput.value = "";
+        this.$.timeInput.value = "";
+        this.$.titleInput.value = "";
+        this.addDesc();
+      },
       remove: function(e){
         var key = e.currentTarget.data.$key;
         this.$$('#query').ref.child(key).remove();
@@ -21812,8 +21895,11 @@ is separate from validation, and `allowed-pattern` does not affect how the input
           this.hide = false;
         }
       },
-      showStuff: function(){
-        console.log("looks like it worked");
+      addDesc: function(){
+        var node = document.createElement("paper-input");
+        node.setAttribute('class','descIn');
+        node.label = "Description";
+        Polymer.dom(this.$.exInputs).appendChild(node);
       }
     });
   })();
@@ -24194,7 +24280,7 @@ is separate from validation, and `allowed-pattern` does not affect how the input
        some of my credentials. It is fully responsive, styled with standard CSS3 and the new CSS Grid Layout.</p>
     <br>
     <p class="left-space" style="max-width: 700px;">Included is a custom CMS in the footer that I built with Polymer so I can
-       manage some of the content with this application without having to work directly with my database.</p>
+       manage most of the content with this CMS without having to work directly with my database.</p>
 
   </template>
   <script>
@@ -24573,63 +24659,33 @@ is separate from validation, and `allowed-pattern` does not affect how the input
 
     <h1 class="left-space">Employment</h1>
     <hr>
+    <firebase-query id="lang" path="/experience" data="{{experiences}}">
+    </firebase-query>
     <div class="left-space">
-      <div class="gridBox">
-        <div class="leftAlign">
-          <h3>Teaching Assistant</h3>
-          <p>Brigham Young University - Idaho</p>
-        </div>
-        <div class="rightAlign">
-          <h3>[From April 2016 - Present]</h3>
-          <p>Rexburg, Idaho</p>
-        </div>
-        <ul>
-          <li>Remediated dozens of working example programs by applying foundational programming rubrics</li>
-          <li>Fixed error-ridden programs using debugging tools to help aspiring programmers develop seamless code</li>
-          <li>Utilized multicultural interpersonal communication skills to work with developers from all around the world</li>
-          <li>Demonstrated above average mastery of programming techniques, communication, and collaboration skills</li>
-        </ul>
-      </div>
-
-      <div class="gridBox">
-        <div class="leftAlign">
-          <h3>Private Tutor</h3>
-          <p>Brigham Young University - Idaho</p>
-        </div>
-        <div class="rightAlign">
-          <h3>[From June 2016 - Present]</h3>
-          <p>Rexburg, Idaho</p>
-        </div>
-        <ul>
-          <li>Utilized languages such as JavaScript, HTML, CSS, Java, SQL and others to assist in the learning of students</li>
-          <li>Consulted developers to develop modular, responsive, and efficient web pages using the MVC model</li>
-          <li>Debugged complex code and software by implementing testing techniques to develop working applications</li>
-          <li>Oversaw the management and creation of Oracle databases by implementing re-runnable scripts</li>
-          <li>Took responsibility for overseeing the maintenance of Linux operating systems and Cisco networks</li>
-          <li>Solved communication problems by mapping business needs to technical requirements</li>
-        </ul>
-      </div>
-
-      <div class="gridBox">
-        <div class="leftAlign">
-          <h3>Computer Lab Technician</h3>
-          <p>South Puget Sound Community College</p>
-        </div>
-        <div class="rightAlign">
-          <h3>[From May 2011 - July 2013]</h3>
-          <p>Olympia, Washington</p>
-        </div>
-        <ul>
-          <li>Responsible for three full labs of computers including hardware and software maintenance</li>
-          <li>Developed mastery of Microsoft Office suite and assisted in using these tools to create various projects</li>
-          <li>Acknowledged several times for being friendly, hard-working, and approachable</li>
-        </ul>
+      <div id="language-list-container">
+        <template is="dom-repeat" items="{{_reverse(experiences)}}" as="experience">
+          <div class="gridBox">
+            <div class="leftAlign">
+              <h3>{{experience.title}}</h3>
+              <p>{{experience.subtitle}}</p>
+            </div>
+            <div class="rightAlign">
+              <h3>{{experience.time}}</h3>
+              <p>{{experience.area}}</p>
+            </div>
+            <ul>
+              <template is="dom-repeat" items="{{experience.description}}" as="desc">
+                <li>{{desc}}</li>
+              </template>
+            </ul>
+          </div>
+        </template>
       </div>
     </div>
 
     <h1 class="left-space">Volunteer Experience</h1>
     <hr>
-    <div class="left-space">
+    <div class="left-space bottom-space">
       <div class="gridBox">
         <div class="leftAlign">
           <h3>Frontend Developer | Volunteer</h3>
@@ -24655,6 +24711,9 @@ is separate from validation, and `allowed-pattern` does not affect how the input
     Polymer({
       is: 'my-employ',
       properties: {
+      },
+      _reverse: function(data){
+        return data.reverse();
       }
     });
   })();
