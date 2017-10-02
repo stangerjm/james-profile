@@ -20494,6 +20494,9 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         clicked: {
           type: Boolean,
           value: true
+        },
+        type: {
+          type: Number
         }
       },
       login: function(){
@@ -20505,6 +20508,7 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         return this.$.auth.signOut();
       },
       doClick: function(){
+        console.log(this.type);
         if(this.clicked){
           this.clicked = false;
         } else{
@@ -21705,10 +21709,26 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         display: block;
         margin-bottom: 20px;
       }
+
+      input{
+        width: 100px;
+        height: 30px;
+        margin: 20px;
+      }
+
+      input:nth-child(2){
+        width: 400px;
+      }
+
+      select{
+        width: 150px;
+        height: 40px;
+        margin-bottom: 20px;
+      }
     </style>
 
     <template is="dom-if" if="{{user}}">
-      <firebase-query id="query" path="/language" data="{{languages}}">
+      <firebase-query id="query" path="{{path}}" data="{{languages}}">
       </firebase-query>
     </template>
 
@@ -21717,22 +21737,28 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         <h1>Welcome, James</h1>
         <h4>What would you like to do?</h4>
 
-
+        <select class="" value="{{path::change}}" name="database-select">
+          <option selected="">Select Database</option>
+          <option value="/language">Languages</option>
+          <option value="/skills">Skills</option>
+        </select>
 
       <template is="dom-repeat" items="{{languages}}" as="language">
         <div class="block">
           <p>[[language.name]] <span hidden$="{{!language.description}}">: <br> </span>  [[language.description]]</p>
           <paper-icon-button icon="clear" data="[[language]]" on-tap="remove" style="color: red"></paper-icon-button>
           <br>
-          <input is="iron-input" hidden$="{{!hide}}" bind-value="{{language.name}}" required="">
-          <input is="iron-input" hidden$="{{!hide}}" bind-value="{{language.description}}">
+          <div class="input-container">
+            <input is="iron-input" hidden$="{{!hide}}" bind-value="{{language.name}}" required="">
+            <input is="iron-input" hidden$="{{!hide}}" bind-value="{{language.description}}">
+          </div>
         </div>
       </template>
 
 
-      <paper-input id="input" label="Add Language"></paper-input>
+      <paper-input id="input" label="Name"></paper-input>
       <paper-input id="descInput" label="Description"></paper-input>
-      <paper-button raised="" on-tap="add">Add Language</paper-button>
+      <paper-button raised="" on-tap="add">Add</paper-button>
       <paper-button raised="" on-tap="showBox">Edit</paper-button>
     </div>
 
@@ -21753,7 +21779,15 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         hide: {
           type: Boolean,
           value: false
+        },
+        path: {
+          type: String,
+          observer: '_observer'
         }
+      },
+
+      _observer: function(v){
+        console.log(v);
       },
       add: function(){
         if(this.$.input.value !== "" && this.$.input.value !== "Please enter some value"){
@@ -21777,6 +21811,9 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         } else {
           this.hide = false;
         }
+      },
+      showStuff: function(){
+        console.log("looks like it worked");
       }
     });
   })();
@@ -24007,7 +24044,8 @@ is separate from validation, and `allowed-pattern` does not affect how the input
               <paper-tabs style="background-color: #222" sticky="" scrollable="" fit-container="">
                 <paper-tab id="edu" link=""><a href="#/education">Education</a></paper-tab>
                 <paper-tab link=""><a href="#/employment">Experience</a></paper-tab>
-                <paper-tab link=""><a href="#/langs">Achievements</a></paper-tab>
+                <paper-tab link=""><a href="#/langs">Technologies</a></paper-tab>
+                <paper-tab link=""><a href="#/achieve">Achievements</a></paper-tab>
               </paper-tabs>
             </div>
           </div>
@@ -24021,6 +24059,7 @@ is separate from validation, and `allowed-pattern` does not affect how the input
             <app-route path="/education" element="my-edu"></app-route>
             <app-route path="/employment" element="my-employ"></app-route>
             <app-route path="/examples" element="ex-projects"></app-route>
+            <app-route path="/achieve" element="soft-skills"></app-route>
             <app-route path="*" element="home-view"></app-route>
           </app-router>
         </div>
@@ -24409,10 +24448,6 @@ is separate from validation, and `allowed-pattern` does not affect how the input
           </ul>
         </template>
       </div>
-      <ul class="lilSpace">
-        <li> Served as the Vice President for both the Brigham Young University - Idaho Web Society and Linux Society</li>
-        <li>Eagle Scout, September 2012</li>
-      </ul>
     </div>
   </template>
   <script>
@@ -24943,6 +24978,46 @@ is separate from validation, and `allowed-pattern` does not affect how the input
           type: String,
           value: 'pro-footer',
           notify: true
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>
+<dom-module id="soft-skills" assetpath="soft-skills/">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <div>
+      <firebase-query id="skl" path="/skills" data="{{skills}}">
+      </firebase-query>
+
+      <h1 id="title" class="left-space">Achievements and Acknowledgements</h1>
+      <hr>
+      <div class="small-left-space">
+        <div id="language-list-container">
+          <template is="dom-repeat" items="{{skills}}" as="skill">
+            <ul>
+              <li class="lilSpace">{{skill.description}}</li>
+            </ul>
+          </template>
+        </div>
+      </div>
+    </div>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'soft-skills',
+
+      properties: {
+        skills: {
+          type: Object
         }
       }
     });
